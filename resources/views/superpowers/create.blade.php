@@ -8,7 +8,7 @@
 </head>
 <body>
 <h1 style="text-align:center;"> CREATE SUPERPOWER</h1>
-<form action="{{ route('sperpowers.store') }}" method="post">
+<form action="{{ route('superpowers.store') }}" method="post">
     @csrf
     <label for="name">Name *</label><br>
     <input type="text" name="name">
@@ -18,6 +18,6 @@
     <label for="description">Description</label><br>
     <textarea name="description" cols="50" rows="5"></textarea>
     <br><br>
-    <buttton type="submit">Create superpower</button>
+    <button type="submit">Create superpower</button>
 </body>
 </html>
