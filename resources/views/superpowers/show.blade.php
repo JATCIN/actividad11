@@ -7,6 +7,7 @@
     <title>{{$superpower->name}}</title>
 </head>
 <body>
+    
     <h1>{{$superpower->name}}</h1>
     <p>{{$superpower->description}}</p>
     <a href="{{route('superpowers.edit',$superpower->id)}}">Editar</a><br><br>

@@ -15,12 +15,15 @@ class ParentsController extends Controller
         ->where('active',1)
         ->select('id','name','gender')
         ->get();
+        $page_title = "Parents";
 
        return view('parents.index',compact('parents'));
     }
 
     public function create()
     {
+        $page_title = "Create Parents";
+        
         return view('parents.create');
     }
 
@@ -46,6 +49,8 @@ class ParentsController extends Controller
         ->select('id','name', 'gender')
         ->firstOrFail();
 
+        $page_title = $parent->name;
+
         return view('parents.show',compact('parent'));
     }
 
@@ -57,6 +62,8 @@ class ParentsController extends Controller
         ->where('id',$id)
         ->select('id','name', 'gender')
         ->firstOrFail();
+
+        $page_title = "Edit Parent";
 
         return view('parents.edit', compact('parent'));
     }

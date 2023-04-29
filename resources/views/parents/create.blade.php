@@ -1,25 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Parents</title>
-</head>
+@include('shared.head')
 <body>
-    <h1>Create Parents</h1>
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-dark leading-tight">
+            {{ __('Create Parents') }}
+        </h2>
+    </x-slot>
+    <div class="container">
+    <div class="row justify-content-center">
+    <div class="col-12 col-md-9 col-lg-6">
     <form action="{{ route('parents.store')}}" method="post">
         @csrf
-        <label for="name">Name</label>
-        <input type="text" name="name">
+        <div class="mb-3">
+        <label for="name" class="form-label text-white font-bold">Name *</label>
+        <input type="text" name="name" class="form-control">
+        </div>
         
-        <br><br>
-
-        <label for="gender">Gender</label>
-        <input type="text" name="gender">
-        <br><br>
-    <button type="submit">Create Parents</button>
-
-    </form>
+        <div class="mb-3">
+        <label for="gender" class="form-label text-white font-bold">Gender</label>
+        <input type="text" name="gender" class="form-control">
+        </div>
+      
+   <!-- <button type="submit">Create Parents</button>-->
+   <div class="text-end">
+                    <button type="submit" class="btn btn-success">Create Parents</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</x-app-layout>
 </body>
 </html>

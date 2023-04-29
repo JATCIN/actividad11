@@ -24,6 +24,7 @@ class SuperPowersController extends Controller
      */
     public function create()
     {
+        $page_title = "Create Superpower";
         return view('superpowers.create');
     }
 
@@ -91,6 +92,6 @@ class SuperPowersController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        
     }
 }
