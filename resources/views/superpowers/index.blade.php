@@ -1,35 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>SUPERPOWERS</h1>
-    <a href="{{ route('superpowers.create')}}">Create Superpowers</a>
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nmae</th>
-                <th>Description</th>
-</tr>
-</thead>
-<tbody>
-    @forelse($superpowers as $superpower)
-    <tr>
-        <td>{{$superpower->id}}</td>
-        <td>
-            <a href="{{ route('superpowers.show',$superpower->id)}}">{{$superpower->name}}</a>
-        </td>
-        <td>{{$superpower->description}}</td>
-    </tr>  
-    @empty
-    <p>There're no superpowers.</p> 
-    @endforelse
-</tbody>
-</table>
-</body>
-</html>
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-black leading-tight">
+            {{ __('Superheros Powers ') }}
+        </h2>
+    </x-slot>
+@extends('layouts.master')
+
+@section('botones')
+<div class="row mb-4">
+    <div class="col text-end">
+        <a href="{{ route('superpowers.create') }}" class="btn btn-success">Create superpower</a>
+    </div>
+</div>
+@endsection
+
+@section('content')
+<div class="row">
+    <div class="col">
+        <table class="table table-striped text-center">
+            <thead>
+                <tr style="color: white;">
+                    <th style="width: 30%;">ID</th>
+                    <th style="width: 30%;">Name</th>
+                    <th style="width: 30%;">Description</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @forelse($superpowers as $superpower)
+                    <tr>
+                        <td style="color: white;">{{ $superpower->id }}</td>
+                        <td style="color: white;">
+                            <a href="{{ route('superpowers.show', $superpower->id) }}" style="color: green; text-decoration: underline;">{{ $superpower->name }}</a>
+                        </td>
+                        <td style="color: white;">{{ $superpower->description }}</td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="3" style="color: white;">There're no superpowers.</td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
+</div>
+</x-app-layout>
+@endsection

@@ -1,28 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Superpower</title>
-</head>
+@include('shared.head')
+
 <body>
-    <h1 style="text-align:center;">EDIT SUPERPOWER</h1>
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-black leading-tight">
+            {{ __('Edit Superpower') }}
+        </h2>
+    </x-slot>
 
-    <from action="{{route('superpowers.update',$superpower->id)}}"method="post">
-        @method('put')
-        @csrf
 
-        <label for="name">Name *</label><br>
-        <input type="text" name="name" value="{{$superpower->name}}">
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-9 col-lg-6">
+            <form action="{{ route('superpowers.update', $superpower->id) }}" method="post">
+                @method('put')
+                @csrf
+                
+                <div class="mb-3">
+                    <label for="name" class="form-label  text-white font-bold">Name *</label> 
+                    <input type="text" name="name" class="form-control" value="{{ $superpower->name }}">
+                </div>
 
-        <br><br>
-
-        <label for ="description">Description</label><br> 
-        <textarea name ="description" cols="50" rows="5"> {{$superpower->description}}</textarea>
-        
-        <br><br>
-
-        <button type="submit">EDIT SUPERPOWER</button>
+                <div class="mb-3">
+                    <label for="description" class="form-label  text-white font-bold">Description</label> 
+                    <textarea name="description" cols="50" rows="5" class="form-control">{{ $superpower->description }}</textarea>
+                </div>
+            
+                <div class="text-end">
+                    <button type="submit" class="btn btn-warning  text-white font-bold">Edit superpower</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</x-app-layout>
 </body>
 </html>

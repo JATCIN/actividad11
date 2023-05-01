@@ -8,90 +8,97 @@ use App\Models\SuperPowers;
 
 class SuperPowersController extends Controller
 {
-    
     public function index()
     {
-    $superpowers=SuperPowers::where('id',Auth::id())
-    ->where('active',1)
-    ->select('id','name','description')
-    ->get();
-    //dd($superpowers);
-    return view('superpowers.index',compact('superpowers'));
+        $superpowers = SuperPowers::where('user_id', Auth::id())
+            ->where('active', 1)
+            ->select('id', 'name', 'description')
+            ->get();
+
+        $page_title = "Superpowers";
+
+        return view('superpowers.index', compact('superpowers', 'page_title'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    
     public function create()
     {
         $page_title = "Create Superpower";
-        return view('superpowers.create');
+        
+        return view('superpowers.create', compact('page_title'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    
     public function store(Request $request)
     {
+        // dd($request);
+
         Superpowers::create([
-            'user_id'=>Auth::id(),
-            'name'=>$request->name,
-            'description'=>$request->description,
-            
+            'user_id' => Auth::id(),
+            'name' => $request->name,
+            'description' => $request->description,
+            'active' => 1
         ]);
+
         return redirect()->route('superpowers.index');
     }
 
-  
+    
     public function show(string $id)
     {
-        $superpower =SuperPowers::where('user_id',Auth::id())
-        ->where('id',$id)
-        ->where('active',1)
-        ->select('id','name','description')
-        ->firstOrFail();
+        $superpower = SuperPowers::where('user_id', Auth::id())
+            ->where('id', $id)
+            ->where('active', 1)
+            ->select('id', 'name', 'description')
+            ->firstOrFail();
 
-        return view('superpowers.show', compact('superpower'));
+        $page_title = $superpower->name;
+
+        return view('superpowers.show', compact('superpower', 'page_title'));
     }
 
-
+    
     public function edit(string $id)
     {
-        $superpower=SuperPowers::where('user_id',Auth::id())
-        ->where('id',$id)
-        ->where('active',1)
-        ->select('id','name','description')
-        ->firstOrFail();
+        $superpower = SuperPowers::where('user_id', Auth::id())
+            ->where('id', $id)
+            ->where('active', 1)
+            ->select('id', 'name', 'description')
+            ->firstOrFail();
 
-        $superpower->update([
-            'name'=>$request->name,
-            'description'=>$request->description
-        ]);
+        $page_title = "Edit Superpower";
 
-        return view('superpowers.edit', compact('superpower'));
+        return view('superpowers.edit', compact('superpower', 'page_title'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    
     public function update(Request $request, string $id)
     {
-        $superpower =SuperPowers::where('user_id',Auth::id())
-        ->where('id',$id)
-        ->where('active',1)
-        ->firstOfail();
+        $superpower = SuperPowers::where('user_id', Auth::id())
+            ->where('id', $id)
+            ->where('active', 1)
+            ->firstOrFail();
 
         $superpower->update([
-            'name'=>$request->name,
-            'description'=>$request->description
+            'name' => $request->name,
+            'description' => $request->description
         ]);
+
+        return redirect()->route('superpowers.show', $id);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    
     public function destroy(string $id)
     {
-        
+        $superpower = SuperPowers::where('user_id', Auth::id())
+            ->where('id', $id)
+            ->where('active', 1)
+            ->firstOrFail();
+
+        $superpower->update([
+            'active' => 0
+        ]);
+
+        return redirect()->route('superpowers.index');
     }
 }
